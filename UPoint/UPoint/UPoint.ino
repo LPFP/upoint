@@ -94,13 +94,12 @@ void loop()
 void loop()
 {
   Serial.println("loop!");
+  
   while (ss.available() > 0)
   {
-    Serial.println(ss.read());
-    
     gps.encode(ss.read());
 
-    //if (gps.location.isUpdated())
+    if (gps.location.isUpdated())
     {
       Serial.println();
       Serial.println("------");
@@ -136,11 +135,9 @@ void loop()
 
       //delay(1000);
 
-    }
-  }
-  
+ 
 
-  /*
+  
   // Retrive the raw values from the compass (not scaled).
   MagnetometerRaw raw = compass.ReadRawAxis();
   // Retrived the scaled values from the compass (scaled to the configured scale).
@@ -161,8 +158,8 @@ void loop()
 
 
   // Calcul de l'angle
-  needleAngle = (needleAngle + needleStep) % 180;
-  //needleAngle=map(degreesToNorth(headingDegrees),0,359,0,179);
+  //needleAngle = (needleAngle + needleStep) % 180;
+  needleAngle=map(degreesToNorth(headingDegrees),0,359,0,179);
   //needleAngle=0;
   //needleAngle=courseTo;
   // Mouvement de le needle
@@ -174,13 +171,16 @@ void loop()
   //Serial.print("Je suis au needleCycle numero ");
   //Serial.println(cycle);
   
-  */
+  
+     }
+  }
   
   // Attente
   delay(500); // waits for the NEEDLE to get there
+  
 }
 
-/*
+
 
 float calculateHeading(MagnetometerRaw raw, MagnetometerScaled scaled) {
 
@@ -254,4 +254,4 @@ void Output(MagnetometerRaw raw, MagnetometerScaled scaled, float heading, float
   Serial.print(degreesToNorth(headingDegrees));
   Serial.println("\t");
 }
-*/
+
